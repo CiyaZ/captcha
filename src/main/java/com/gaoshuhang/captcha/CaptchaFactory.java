@@ -31,9 +31,9 @@ public class CaptchaFactory
 	 * @param charArray 可选字符
 	 * @param xScale    在生成的原图基础上的X轴缩放
 	 * @param yScale    在生成的原图基础上的Y轴缩放
-	 * @return 生成的验证码内存缓冲
+	 * @return 生成的验证码
 	 */
-	public static BufferedImage createRandom(int charNum, char[] charArray, float xScale, float yScale)
+	public static Captcha createRandom(int charNum, char[] charArray, float xScale, float yScale)
 	{
 		//生成随机字符串
 		StringBuilder stringBuilder = new StringBuilder();
@@ -53,9 +53,9 @@ public class CaptchaFactory
 	 * @param str    参数字符串
 	 * @param xScale 在生成的原图基础上的X轴缩放
 	 * @param yScale 在生成的原图基础上的Y轴缩放
-	 * @return 生成的验证码内存缓冲
+	 * @return 生成的验证码
 	 */
-	public static BufferedImage create(String str, float xScale, float yScale)
+	public static Captcha create(String str, float xScale, float yScale)
 	{
 		//原始图片长宽
 		int charNum = str.length();
@@ -76,7 +76,7 @@ public class CaptchaFactory
 
 		//释放资源
 		g2d.dispose();
-		return captcha;
+		return new Captcha(str, captcha);
 	}
 
 	private static void drawBackground(Graphics2D g2d, BufferedImage captcha)
@@ -87,7 +87,7 @@ public class CaptchaFactory
 		g2d.setColor(Color.WHITE);
 		g2d.fillRect(0, 0, captcha.getWidth(), captcha.getHeight());
 		//背景层
-		for(int i = 0; i < drawTimes; i++)
+		for (int i = 0; i < drawTimes; i++)
 		{
 			//随机颜色坐标画小三角
 			g2d.setColor(ColorUtil.createRandRGBColor(BACKGROUND_TRI_ALPHA));
@@ -99,7 +99,7 @@ public class CaptchaFactory
 
 	private static void drawString(Graphics2D g2d, String str, BufferedImage captcha)
 	{
-		for(int i = 0; i < str.length(); i++)
+		for (int i = 0; i < str.length(); i++)
 		{
 			g2d.setColor(ColorUtil.createRandRGBColor(CHAR_ALPHA));
 			DrawUtil.fillChar(CHAR_WIDTH_UNIT * i, 0, str.charAt(i), g2d);
@@ -108,7 +108,7 @@ public class CaptchaFactory
 
 	private static void drawDecorator(Graphics2D g2d, BufferedImage captcha)
 	{
-		for(int i = 0; i < DECORATE_SNOW_NUM; i++)
+		for (int i = 0; i < DECORATE_SNOW_NUM; i++)
 		{
 			DrawUtil.fillNoisePoint(captcha, g2d);
 		}

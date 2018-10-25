@@ -20,7 +20,7 @@ class TestInSwing
 
 			long startTime = System.currentTimeMillis();
 			//调用验证码生成工具类
-			BufferedImage captchaImage = CaptchaFactory.create("CAPTCHA", 1, 1);
+			BufferedImage captchaImage = CaptchaFactory.create("CAPTCHA", 1, 1).getImage();
 			long endTime = System.currentTimeMillis();
 			System.out.println("function CaptchaFactory.create() time cost: " + (endTime - startTime) + "ms");
 

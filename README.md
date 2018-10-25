@@ -15,9 +15,9 @@ CaptchaFactory.java
  * @param charArray 可选字符
  * @param xScale    在生成的原图基础上的X轴缩放
  * @param yScale    在生成的原图基础上的Y轴缩放
- * @return 生成的验证码内存缓冲
+ * @return 生成的验证码
  */
-public static BufferedImage createRandom(int charNum, char[] charArray, float xScale, float yScale);
+public static Captcha createRandom(int charNum, char[] charArray, float xScale, float yScale);
 
 /**
  * 根据参数字符串生成一个验证码图片
@@ -25,9 +25,9 @@ public static BufferedImage createRandom(int charNum, char[] charArray, float xS
  * @param str    参数字符串
  * @param xScale 在生成的原图基础上的X轴缩放
  * @param yScale 在生成的原图基础上的Y轴缩放
- * @return 生成的验证码内存缓冲
+ * @return 生成的验证码
  */
-public static BufferedImage create(String str, float xScale, float yScale);
+public static Captcha create(String str, float xScale, float yScale);
 ```
 
 ### 可选的调整参数
@@ -70,7 +70,7 @@ class TestInSwing
 
 			long startTime = System.currentTimeMillis();
 			//调用验证码生成工具类
-			BufferedImage captchaImage = CaptchaFactory.create("CAPTCHA", 1, 1);
+			BufferedImage captchaImage = CaptchaFactory.create("CAPTCHA", 1, 1).getImage();
 			long endTime = System.currentTimeMillis();
 			System.out.println("function CaptchaFactory.create() time cost: " + (endTime - startTime) + "ms");
 
@@ -91,6 +91,7 @@ class TestInSwing
 
 ## 打包
 
+编译打包为jar并存放到Maven本地仓库：
 ```
-mvn package
+mvn clean install
 ```
